@@ -35,7 +35,7 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/xmikux/muse:fix
+          tags: ghcr.io/rdmchr/muse:latest
           build-args: |
             COMMIT_HASH=${{ github.sha }}
             BUILD_DATE=${{ steps.current-time.outputs.time }}
