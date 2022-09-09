@@ -13,7 +13,9 @@ WORKDIR /usr/app
 COPY package.json .
 COPY yarn.lock .
 
-RUN yarn install --prod
+RUN yarn install --prod && \
+    sed -i "64s/const subBody = body.slice(ndx + functionStart.length);/const end = body.indexOf('.join(\"\")};', ndx);/" node_modules/ytdl-core/lib/sig.js && \
+    sed -i "65s/const functionBody = \`var \${functionStart}\${utils.cutAfterJS(subBody)};\${functionName}(ncode);\`;/const subBody = body.slice(ndx, end); const functionBody = \`\${subBody}.join(\"\")};\${functionName}(ncode);\`;/" node_modules/ytdl-core/lib/sig.js
 
 # Only keep what's necessary to run
 FROM base AS runner
